@@ -25,14 +25,13 @@ internal class Deck @JvmOverloads constructor(i: Int = 1) {
         throw CardTakenException(card)
     }
 
-
     private fun isCardPicked(c: Card?): Boolean {
         return cardIntegerMap[getCard(c)] == 0
     }
 
     private fun getCard(c: Card?): Card {
         if (Objects.nonNull(c)) for ((key) in cardIntegerMap) if (key!!.value == c!!.value && key.color == c.color) return key
-        throw IllegalArgumentException("The card $c is not part of the deck")
+        throw IllegalArgumentException(GameController.lang["reader.exception.deck.illegal"].replace("{card}", "$c"))
     }
 
     fun addCard(c: Card?) {
@@ -40,7 +39,7 @@ internal class Deck @JvmOverloads constructor(i: Int = 1) {
     }
 
     @Throws(CardTakenException::class)
-    fun pickRandomCard(): Card? {
+    fun pickRandomCard(): Card {
         var c: Card? = null
         do {
             val cardList: List<Card?> = ArrayList(cardIntegerMap.keys)

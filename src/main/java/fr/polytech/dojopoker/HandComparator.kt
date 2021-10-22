@@ -62,14 +62,16 @@ internal class HandComparator(private val hand: Hand) {
         }
 
     private fun init(): HandRankings {
-        if (isStraight && isFlush) return HandRankings.STRAIGHT_FLUSH
-        if (repeatOfCards(1, 4)) return HandRankings.FOUR_OF_A_KIND
-        if (isFull) return HandRankings.FULL_HOUSE
-        if (isFlush) return HandRankings.FLUSH
-        if (isStraight) return HandRankings.STRAIGHT
-        if (repeatOfCards(1, 3)) return HandRankings.THREE_OF_A_KIND
-        if (repeatOfCards(2, 2)) return HandRankings.TWO_PAIR
-        return if (repeatOfCards(1, 2)) HandRankings.PAIR else HandRankings.HIGH_CARD
+        return when {
+            isStraight && isFlush -> HandRankings.STRAIGHT_FLUSH
+            repeatOfCards(1, 4) -> HandRankings.FOUR_OF_A_KIND
+            isFull -> HandRankings.FULL_HOUSE
+            isFlush -> HandRankings.FLUSH
+            isStraight -> HandRankings.STRAIGHT
+            repeatOfCards(1, 3) -> HandRankings.THREE_OF_A_KIND
+            repeatOfCards(2, 2) -> HandRankings.TWO_PAIR
+            else -> if (repeatOfCards(1, 2)) HandRankings.PAIR else HandRankings.HIGH_CARD
+        }
     }
 
     private val isStraight: Boolean

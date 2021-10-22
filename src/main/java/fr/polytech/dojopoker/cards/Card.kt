@@ -1,6 +1,6 @@
 package fr.polytech.dojopoker.cards
 
-import fr.polytech.dojopoker.exceptions.CardValidException
+import fr.polytech.dojopoker.exceptions.CardExistException
 import java.util.*
 
 class Card(val value: Int, val color: CardColor) : Comparable<Card> {
@@ -28,12 +28,18 @@ class Card(val value: Int, val color: CardColor) : Comparable<Card> {
         }
     }
 
+    override fun hashCode(): Int {
+        var result = value
+        result = 31 * result + color.hashCode()
+        return result
+    }
+
     companion object {
         @JvmStatic
-        @Throws(CardValidException::class)
+        @Throws(CardExistException::class)
         fun isValidCard(n: Int, c: String): Boolean {
             if (n in 2..14 && CardColor.isValueCorrect(c)) return true
-            throw CardValidException(n.toString() + c)
+            throw CardExistException(n.toString() + c)
         }
     }
 }

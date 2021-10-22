@@ -43,22 +43,23 @@ internal class GameController {
     }
 
     private fun getWinningMessage(hand: Hand?): String {
-        if (Objects.isNull(hand)) {
-            return lang["end.equality"]
-        } else {
-            val rankings = hand!!.ranking
-            var toReturn = "La main ${hand.id} gagne avec ${rankings.readName}"
-            when {
-                rankings === HandRankings.PAIR || rankings === HandRankings.TWO_PAIR || rankings === HandRankings.THREE_OF_A_KIND || rankings === HandRankings.FOUR_OF_A_KIND || rankings === HandRankings.FULL_HOUSE -> {
-                    toReturn += " de ${hand.getCard(0).stringValue}"
-                    if (rankings === HandRankings.TWO_PAIR || rankings === HandRankings.FULL_HOUSE)
-                        toReturn += " et de ${hand.getCard(3).stringValue}"
+        when {
+            Objects.isNull(hand) -> return lang["end.equality"]
+            else -> {
+                val rankings = hand!!.ranking
+                var toReturn = lang["end.win.message"].replace("{id}", "${hand.id}").replace("{ranking}", rankings.readName)
+                when {
+                    rankings === HandRankings.PAIR || rankings === HandRankings.TWO_PAIR || rankings === HandRankings.THREE_OF_A_KIND || rankings === HandRankings.FOUR_OF_A_KIND || rankings === HandRankings.FULL_HOUSE -> {
+                        toReturn += lang["end.win.message.of"] + hand.getCard(0).stringValue
+                        if (rankings === HandRankings.TWO_PAIR || rankings === HandRankings.FULL_HOUSE)
+                            toReturn += lang["end.win.message.of.of"] + {hand.getCard(3).stringValue}
+                    }
+                    rankings === HandRankings.HIGH_CARD -> toReturn += ": ${hand.getCard(0).stringValue}"
+                    rankings === HandRankings.FLUSH -> toReturn += ": ${hand.getCard(0).color.readName}"
+                    rankings === HandRankings.STRAIGHT || rankings === HandRankings.STRAIGHT_FLUSH -> toReturn += ": ${hand.cards}"
                 }
-                rankings === HandRankings.HIGH_CARD -> toReturn += " : ${hand.getCard(0).stringValue}"
-                rankings === HandRankings.FLUSH -> toReturn += " : ${hand.getCard(0).color.readName}"
-                rankings === HandRankings.STRAIGHT || rankings === HandRankings.STRAIGHT_FLUSH -> toReturn += " : ${hand.cards}"
+                return toReturn
             }
-            return toReturn
         }
     }
 

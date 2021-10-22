@@ -1,5 +1,7 @@
 package fr.polytech.dojopoker.exceptions
 
+import fr.polytech.dojopoker.GameController
+
 class HandSizeException
-    (size: Int, actualSize: Int) :
-    Exception("La main doit avoir une taille de " + size + " carte" + (if (actualSize > 1) "s" else "") + ", alors que la main rentrée a une taille de " + actualSize + " carte" + (if (actualSize > 1) "s" else "") + ".")
+    (size: Int, actualSize: Int) : Exception(GameController.lang["reader.exception.hand.size"].replace("{size}", "$size").replace("{isize}", "$actualSize"))
+

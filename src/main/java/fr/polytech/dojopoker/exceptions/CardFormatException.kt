@@ -1,4 +1,6 @@
 package fr.polytech.dojopoker.exceptions
 
+import fr.polytech.dojopoker.GameController
+
 class CardFormatException
-    (i: Int) : Exception("Le format de la carte $i n'est pas valide.")
+    (i: Int) : Exception(GameController.lang["reader.exception.card.format"].replace("{card}", "$i"))
