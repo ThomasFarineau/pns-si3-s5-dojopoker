@@ -1,31 +1,17 @@
 package fr.polytech.dojopoker
 
-/**
- * The enum Hand rankings.
- *
- * @author [Thomas Farineau](https://github.com/ThomasFarineau)
- * @author [Ambre Correia](https://github.com/AmbreCorreia)
- * @author [Quentin Dubois](https://github.com/QuentinDubois-Polytech)
- * @author [Zinedine Chelgham](https://github.com/Chelgham-Zinedine)
- * @version 1.0
- */
 internal enum class HandRankings(val strength: Int,val readName: String) {
-    STRAIGHTFLUSH(8, "quinte flush"),
-    SQUARE(7, "carré"),
-    FULL(6, "full"),
-    FLUSH(5, "couleur"),
-    STRAIGHT(4, "suite"),
-    BRELAN(3, "brelan"),
-    DOUBLEPAIR(2, "double paire"),
-    PAIR(1, "paire"),
-    HIGHESTCARD(0, "carte la plus élevée");
+    //ROYAL_STRAIGHT_FLUSH(9, GameController.lang["rankings.royal_straight_flush"]),
+    STRAIGHT_FLUSH(8, GameController.lang["rankings.straight_flush"]),
+    FOUR_OF_A_KIND(7, GameController.lang["rankings.four_of_a_kind"]),
+    FULL_HOUSE(6, GameController.lang["rankings.full_house"]),
+    FLUSH(5, GameController.lang["rankings.flush"]),
+    STRAIGHT(4, GameController.lang["rankings.straight"]),
+    THREE_OF_A_KIND(3, GameController.lang["rankings.three_of_a_kind"]),
+    TWO_PAIR(2, GameController.lang["rankings.two_pair"]),
+    PAIR(1, GameController.lang["rankings.pair"]),
+    HIGH_CARD(0, GameController.lang["rankings.high_card"]);
 
-    /**
-     * Compare two CombinationType with their strength
-     *
-     * @param handRankings the CombinationType to compare
-     * @return the difference of strength
-     */
     fun compare(handRankings: HandRankings): Int {
         return strength - handRankings.strength
     }

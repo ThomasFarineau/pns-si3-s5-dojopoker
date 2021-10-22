@@ -3,31 +3,10 @@ package fr.polytech.dojopoker
 import fr.polytech.dojopoker.cards.Card
 import java.util.*
 
-/**
- * The type Hand comparator.
- *
- * @author [Thomas Farineau](https://github.com/ThomasFarineau)
- * @author [Ambre Correia](https://github.com/AmbreCorreia)
- * @author [Quentin Dubois](https://github.com/QuentinDubois-Polytech)
- * @author [Zinedine Chelgham](https://github.com/Chelgham-Zinedine)
- * @version 1.0
- */
 internal class HandComparator(private val hand: Hand) {
-    /**
-     * Gets ranking.
-     *
-     * @return the ranking
-     */
     val ranking: HandRankings
 
-    /**
-     * this function allows knowing if there's a repetition of cards in the hand
-     *
-     * @param repeat number of repetitions
-     * @param cards  number of cards repeated
-     * @return true if the tested combination is in the hand
-     */
-    fun repeatOfCards(repeat: Int, cards: Int): Boolean {
+    private fun repeatOfCards(repeat: Int, cards: Int): Boolean {
         val cardsCounter: MutableMap<Int, Int> = HashMap()
         for (card1 in hand.cards) cardsCounter[card1.value] =
             if (cardsCounter.containsKey(card1.value)) cardsCounter[card1.value]!! + 1 else 1
@@ -55,12 +34,7 @@ internal class HandComparator(private val hand: Hand) {
         return false
     }
 
-    /**
-     * this function allows knowing if the hand is a full
-     *
-     * @return true if the hand is a full
-     */
-    val isFull: Boolean
+    private val isFull: Boolean
         get() {
             val cardsCounter: MutableMap<Int, Int> = HashMap()
             for (card in hand.cards) {
@@ -87,50 +61,30 @@ internal class HandComparator(private val hand: Hand) {
             return false
         }
 
-    /**
-     * Init combination combination type.
-     *
-     * @return the combination type
-     */
-    fun init(): HandRankings {
-        if (isStraight && isFlush) return HandRankings.STRAIGHTFLUSH
-        if (repeatOfCards(1, 4)) return HandRankings.SQUARE
-        if (isFull) return HandRankings.FULL
+    private fun init(): HandRankings {
+        if (isStraight && isFlush) return HandRankings.STRAIGHT_FLUSH
+        if (repeatOfCards(1, 4)) return HandRankings.FOUR_OF_A_KIND
+        if (isFull) return HandRankings.FULL_HOUSE
         if (isFlush) return HandRankings.FLUSH
         if (isStraight) return HandRankings.STRAIGHT
-        if (repeatOfCards(1, 3)) return HandRankings.BRELAN
-        if (repeatOfCards(2, 2)) return HandRankings.DOUBLEPAIR
-        return if (repeatOfCards(1, 2)) HandRankings.PAIR else HandRankings.HIGHESTCARD
+        if (repeatOfCards(1, 3)) return HandRankings.THREE_OF_A_KIND
+        if (repeatOfCards(2, 2)) return HandRankings.TWO_PAIR
+        return if (repeatOfCards(1, 2)) HandRankings.PAIR else HandRankings.HIGH_CARD
     }
 
-    /**
-     * this function allows knowing if the hand is a straight
-     *
-     * @return true if the hand is a straight
-     */
-    val isStraight: Boolean
+    private val isStraight: Boolean
         get() {
             hand.cards.sortWith(Collections.reverseOrder())
             for (i in 0 until hand.cards.size - 1) if (hand.getCard(i).value - hand.getCard(i + 1).value != 1) return false
             return true
         }
 
-    /**
-     * this function allows knowing if the hand is a flush
-     *
-     * @return true if the hand is a flush
-     */
-    val isFlush: Boolean
+    private val isFlush: Boolean
         get() {
             for (i in 1 until hand.cards.size) if (hand.getCard(i).color != hand.getCard(0).color) return false
             return true
         }
 
-    /**
-     * Instantiates a new Hand comparator.
-     *
-     * @param hand the hand
-     */
     init {
         ranking = init()
     }

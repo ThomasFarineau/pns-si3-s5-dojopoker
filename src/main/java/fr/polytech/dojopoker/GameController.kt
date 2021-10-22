@@ -9,6 +9,8 @@ internal class GameController {
     private var players: Int
 
     init {
+        lang.locale = "FR"
+
         players = selectPlayers()
         (1..players).forEach { i -> hands.add(Hand(i)) }
 
@@ -22,11 +24,11 @@ internal class GameController {
         val sc = Scanner(System.`in`)
         var players = 0
         do {
-            println("How many hands will this game be played with? (between 2 and 10)")
+            println(lang["init.players.input"])
             try {
                 players = Integer.parseInt(sc.nextLine())
             } catch (e: Exception) {
-                println("What you have input is not a number")
+                println(lang["init.players.input.error"])
             }
         } while (players < 2 || players > 10)
         return players
@@ -42,23 +44,26 @@ internal class GameController {
 
     private fun getWinningMessage(hand: Hand?): String {
         if (Objects.isNull(hand)) {
-            return "Equality"
+            return lang["end.equality"]
         } else {
             val rankings = hand!!.ranking
             var toReturn = "La main ${hand.id} gagne avec ${rankings.readName}"
             when {
-                rankings === HandRankings.PAIR || rankings === HandRankings.DOUBLEPAIR || rankings === HandRankings.BRELAN || rankings === HandRankings.SQUARE || rankings === HandRankings.FULL -> {
+                rankings === HandRankings.PAIR || rankings === HandRankings.TWO_PAIR || rankings === HandRankings.THREE_OF_A_KIND || rankings === HandRankings.FOUR_OF_A_KIND || rankings === HandRankings.FULL_HOUSE -> {
                     toReturn += " de ${hand.getCard(0).stringValue}"
-                    if (rankings === HandRankings.DOUBLEPAIR || rankings === HandRankings.FULL)
+                    if (rankings === HandRankings.TWO_PAIR || rankings === HandRankings.FULL_HOUSE)
                         toReturn += " et de ${hand.getCard(3).stringValue}"
                 }
-                rankings === HandRankings.HIGHESTCARD -> toReturn += " : ${hand.getCard(0).stringValue}"
+                rankings === HandRankings.HIGH_CARD -> toReturn += " : ${hand.getCard(0).stringValue}"
                 rankings === HandRankings.FLUSH -> toReturn += " : ${hand.getCard(0).color.readName}"
-                rankings === HandRankings.STRAIGHT || rankings === HandRankings.STRAIGHTFLUSH -> toReturn += " : ${hand.cards}"
+                rankings === HandRankings.STRAIGHT || rankings === HandRankings.STRAIGHT_FLUSH -> toReturn += " : ${hand.cards}"
             }
             return toReturn
         }
     }
 
+    companion object {
+        val lang = Lang()
+    }
 
 }

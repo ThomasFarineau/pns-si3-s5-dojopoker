@@ -1,51 +1,20 @@
 package fr.polytech.dojopoker.cards
 
-/**
- * enum of card values corresponding to figures
- *
- * @author [Thomas Farineau](https://github.com/ThomasFarineau)
- * @author [Ambre Correia](https://github.com/AmbreCorreia)
- * @author [Quentin Dubois](https://github.com/QuentinDubois-Polytech)
- * @author [Zinedine Chelgham](https://github.com/Chelgham-Zinedine)
- * @version 1.0
- */
-internal enum class CardName(private val value: Int, val readName: String) {
-    /**
-     * V card name.
-     */
-    V(11, "Valet"),
+import fr.polytech.dojopoker.GameController
 
-    /**
-     * D card name.
-     */
-    D(12, "Dame"),
-
-    /**
-     * R card name.
-     */
-    R(13, "Roi"),
-
-    /**
-     * A card name.
-     */
-    A(14, "As");
-
+internal enum class CardName(val value: Int, val indicator: String, val readName: String) {
+    J(11, GameController.lang["card.11.1"], GameController.lang["card.11.name"]),
+    Q(12, GameController.lang["card.12.1"], GameController.lang["card.12.name"]),
+    K(13, GameController.lang["card.13.1"], GameController.lang["card.13.name"]),
+    A(14, GameController.lang["card.14.1"], GameController.lang["card.14.name"]);
 
     companion object {
-        /**
-         * Enum from value card name.
-         *
-         * @param value the value
-         * @return the card name
-         */
         @JvmStatic
         fun enumFromValue(value: Int): CardName? {
             for (cardName in values()) if (cardName.value == value) return cardName
             return null
         }
 
-
     }
-
 
 }
