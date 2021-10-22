@@ -1,7 +1,7 @@
 Student project : Dojo Poker
 =================================
 
-Redesign in Kotlin of the team project done at the beginning of the 3rd year at Polytech Nice
+Rewriting in Kotlin of my first team project at Polytech Nice
 
 *Note that I have entirely redone the project alone*
 
