@@ -1,6 +1,6 @@
 package fr.polytech.dojopoker
 
-internal enum class HandRankings(val strength: Int,val readName: String) {
+internal enum class HandRankings(val strength: Int, val readName: String) {
     //ROYAL_STRAIGHT_FLUSH(9, GameController.lang["rankings.royal_straight_flush"]),
     STRAIGHT_FLUSH(8, GameController.lang["rankings.straight_flush"]),
     FOUR_OF_A_KIND(7, GameController.lang["rankings.four_of_a_kind"]),

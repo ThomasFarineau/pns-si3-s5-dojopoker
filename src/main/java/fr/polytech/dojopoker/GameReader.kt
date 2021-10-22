@@ -8,7 +8,7 @@ import fr.polytech.dojopoker.exceptions.HandSizeException
 import java.util.*
 import java.util.function.Consumer
 
-internal class GameReader (private val game: GameController) {
+internal class GameReader(private val game: GameController) {
 
     private fun inputConversion(cardRepresentation: String): List<Card> {
         val c: MutableList<Card> = ArrayList()

@@ -8,8 +8,12 @@ import java.util.*
 import java.util.stream.Collectors
 
 class Lang {
-    val path: String = Objects.requireNonNull(Thread.currentThread().contextClassLoader.getResource("")).path
-    var files: List<File>
+    private val path: String = Objects.requireNonNull(Thread.currentThread().contextClassLoader.getResource("")).path
+
+    var files: List<File> = Arrays.stream(Objects.requireNonNull(File(path).listFiles()))
+        .filter { file: File -> file.name.matches(Regex("[a-z]*_[A-Z]*[.]properties")) }
+        .collect(Collectors.toList())
+
     var currentLocale = Properties()
 
     val locales: List<String>
@@ -35,9 +39,6 @@ class Lang {
     }
 
     init {
-        files = Arrays.stream(Objects.requireNonNull(File(path).listFiles()))
-            .filter { file: File -> file.name.matches(Regex("[a-z]*_[A-Z]*[.]properties")) }
-            .collect(Collectors.toList())
         locale = "EN"
     }
 }
