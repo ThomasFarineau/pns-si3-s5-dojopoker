@@ -11,3 +11,5 @@ Added
 - [x] Implementation of a multi-player system (>2)
 - [ ] Implementation of a random card selection for dojo poker
 - [ ] Implementation of the dual game mode (texas hold'em *without bet* and dojo poker)
+  - [ ] DojoPoker functional
+  - [ ] TexasHoldemPoker functional
