@@ -1,6 +1,5 @@
 package fr.polytech.dojopoker.gamemode
 
-import fr.polytech.dojopoker.GameController
 import fr.polytech.dojopoker.GameController.Companion.lang
 import fr.polytech.dojopoker.cards.Card
 import fr.polytech.dojopoker.cards.Card.Companion.isValidCard
@@ -65,7 +64,6 @@ class DojoPoker : GamePoker() {
                 }
             }
         } catch (e: Exception) {
-            // Cancel the remove of cards in the deck if there is an exception
             c.forEach(Consumer { card: Card ->
                 deck.addCard(card)
             })
