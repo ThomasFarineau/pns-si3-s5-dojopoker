@@ -20,5 +20,6 @@ Difficulty encountered
 ------------------
 - Algorithm for determining poker hands
 - Conversion of the standard input into a poker hand (syntax check, duplicates...)
+- Implementation of Texas Hold'em
 
 **All rights reserved to Thomas Farineau**
