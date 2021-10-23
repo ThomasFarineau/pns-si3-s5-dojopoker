@@ -32,7 +32,9 @@ internal class GameReader(private val game: GameController) {
             }
         } catch (e: Exception) {
             // Cancel the remove of cards in the deck if there is an exception
-            c.forEach(Consumer { card: Card? -> game.deck.addCard(card) })
+            c.forEach(Consumer { card: Card ->
+                game.deck.addCard(card)
+            })
             println(e.message)
         }
         return c

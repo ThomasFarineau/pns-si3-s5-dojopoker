@@ -4,20 +4,36 @@ import java.util.*
 
 internal class GameController {
     @JvmField
-    var deck = Deck()
+    val deck: Deck
     var hands: MutableList<Hand> = ArrayList()
     private var players: Int
 
     init {
-        lang.locale = "FR"
-
+        lang.locale = selectLang()
         players = selectPlayers()
+
+        deck = Deck()
+
         (1..players).forEach { i -> hands.add(Hand(i)) }
 
         GameReader(this).readingStandardInput()
 
         val hand = winnerHand()
         println(getWinningMessage(hand))
+    }
+
+    private fun selectLang(): String {
+        val sc = Scanner(System.`in`)
+        var newLang: String
+        do {
+            println(lang["init.locale.select"].replace("{list}", lang.locales.toString()))
+            newLang = sc.nextLine()
+            if(!lang.locales.contains(newLang)) {
+                println(lang["init.locale.select.error"])
+            }
+        } while (!lang.locales.contains(newLang))
+
+        return newLang
     }
 
     private fun selectPlayers(): Int {
