@@ -1,7 +1,10 @@
 package fr.polytech.dojopoker.gamemode
 
-class TexasHoldemPoker : GamePoker() {
+import fr.polytech.dojopoker.hands.Hand
+import java.util.ArrayList
 
+class TexasHoldemPoker : GamePoker() {
+    var boards: MutableList<Hand> = ArrayList()
 
     init {
         println("\n\n▀█▀ █▀▀ ▀▄▀ ▄▀▄ █▀▀ █▄█ █▀█ █   █▀▄ █▀▀ █▄ ▄█ █▀█ █▀█ █▄▀ █▀▀ █▀█\n█  ██▄ █ █ █▀█ ▄██ █ █ █▄█ █▄▄ █▄▀ ██▄ █ ▀ █ █▀▀ █▄█ █ █ ██▄ █▀▄\n\n")
