@@ -1,12 +1,15 @@
 package fr.polytech.dojopoker.gamemode
 
 import fr.polytech.dojopoker.GameController
+import fr.polytech.dojopoker.GameController.Companion.lang
 import fr.polytech.dojopoker.cards.Card
 import fr.polytech.dojopoker.cards.Card.Companion.isValidCard
 import fr.polytech.dojopoker.cards.CardColor.Companion.enumFromValue
 import fr.polytech.dojopoker.cards.CardName
 import fr.polytech.dojopoker.exceptions.CardFormatException
 import fr.polytech.dojopoker.exceptions.HandSizeException
+import fr.polytech.dojopoker.hands.Hand
+import fr.polytech.dojopoker.hands.HandRankings
 import java.util.*
 import java.util.function.Consumer
 
@@ -17,15 +20,16 @@ class DojoPoker : GamePoker() {
         println("\n\n█▀▄ █▀█ ▀█▀ █▀█ █▀█ █▀█ █▄▀ █▀▀ █▀█\n█▄▀ █▄█ ▄█  █▄█ █▀▀ █▄█ █ █ ██▄ █▀▄\n\n")
         players = super.selectPlayers()
         readHands()
+        println(getWinningMessage(winnerHand()))
     }
 
     private fun readHands() {
         val sc = Scanner(System.`in`)
         for (hand in hands) do {
-            print(GameController.lang["reader.input"].replace("{id}", "${hand.id}"))
+            print(lang["reader.input"].replace("{id}", "${hand.id}"))
             val nLine = sc.nextLine()
             when {
-                nLine.equals(GameController.lang["reader.random"]) -> hand.cards = randomCards()
+                nLine.equals(lang["reader.random"]) -> hand.cards = randomCards()
                 else -> hand.cards = inputConversion(nLine)
             }
         } while (!hand.isValid)
@@ -70,14 +74,34 @@ class DojoPoker : GamePoker() {
         return c
     }
 
-    //Classement des mains
-    private fun rankHands() {
-
+    private fun winnerHand(): Hand? {
+        hands.sortWith(Collections.reverseOrder())
+        for (i in 1..hands.size)
+            if (hands[0].compareTo(hands[1]) == 0)
+                return null
+        return hands[0]
     }
 
-    //Message de fins
-    private fun endMessage() {
-
+    private fun getWinningMessage(hand: Hand?): String {
+        when {
+            Objects.isNull(hand) -> return lang["end.equality"]
+            else -> {
+                val rankings = hand!!.ranking
+                var toReturn =
+                    lang["end.win.message"].replace("{id}", "${hand.id}").replace("{ranking}", rankings.readName)
+                when {
+                    rankings === HandRankings.PAIR || rankings === HandRankings.TWO_PAIR || rankings === HandRankings.THREE_OF_A_KIND || rankings === HandRankings.FOUR_OF_A_KIND || rankings === HandRankings.FULL_HOUSE -> {
+                        toReturn += lang["end.win.message.of"] + hand.getCard(0).stringValue
+                        if (rankings === HandRankings.TWO_PAIR || rankings === HandRankings.FULL_HOUSE)
+                            toReturn += lang["end.win.message.of.of"] + { hand.getCard(3).stringValue }
+                    }
+                    rankings === HandRankings.HIGH_CARD -> toReturn += ": ${hand.getCard(0).stringValue}"
+                    rankings === HandRankings.FLUSH -> toReturn += ": ${hand.getCard(0).color.readName}"
+                    rankings === HandRankings.STRAIGHT || rankings === HandRankings.STRAIGHT_FLUSH -> toReturn += ": ${hand.cards}"
+                }
+                return toReturn
+            }
+        }
     }
 
     @Throws(CardFormatException::class)
