@@ -1,6 +1,5 @@
 package fr.thomasfar.dojopoker
 
-import fr.polytech.dojopoker.gamemode.*
 import fr.thomasfar.dojopoker.gamemode.DojoPoker
 import fr.thomasfar.dojopoker.gamemode.GamePoker
 import fr.thomasfar.dojopoker.gamemode.TexasHoldemPoker
