@@ -3,32 +3,33 @@ package fr.polytech.dojopoker.hands
 import fr.polytech.dojopoker.cards.Card
 import java.util.*
 
-internal class HandComparator(private val hand: Hand) {
+internal class HandComparator(private var cards: MutableList<Card>) {
     val ranking: HandRankings
 
-    private fun repeatOfCards(repeat: Int, cards: Int): Boolean {
+    private fun repeatOfCards(repeat: Int, number: Int): Boolean {
         val cardsCounter: MutableMap<Int, Int> = HashMap()
-        for (card1 in hand.cards) cardsCounter[card1.value] =
+
+        for (card1 in cards) cardsCounter[card1.value] =
             if (cardsCounter.containsKey(card1.value)) cardsCounter[card1.value]!! + 1 else 1
-        val counter = cardsCounter.entries.stream().filter { (_, value): Map.Entry<Int, Int> -> value == cards }
+        val counter = cardsCounter.entries.stream().filter { (_, value): Map.Entry<Int, Int> -> value == number }
             .count()
             .toInt()
         if (counter >= repeat) {
-            val cardList2: MutableList<Card> = ArrayList(hand.cards)
-            hand.cards.reverse()
+            val cardList2: MutableList<Card> = ArrayList(number)
+            cards.reverse()
             cardList2.reverse()
             val toSort: List<Map.Entry<Int, Int>> = ArrayList<Map.Entry<Int, Int>>(cardsCounter.entries)
             toSort.sortedWith(compareBy { it.value })
             for ((key, value) in toSort) {
-                if (value >= cards) {
-                    hand.cards.stream().filter { card: Card -> card.value == key }.forEach { card: Card? ->
+                if (value >= number) {
+                    cards.stream().filter { card: Card -> card.value == key }.forEach { card: Card? ->
                         cardList2.remove(card)
                         if (card != null) cardList2.add(card)
                     }
                 }
             }
             cardList2.reverse()
-            hand.cards = cardList2
+            cards = cardList2
             return true
         }
         return false
@@ -37,7 +38,7 @@ internal class HandComparator(private val hand: Hand) {
     private val isFull: Boolean
         get() {
             val cardsCounter: MutableMap<Int, Int> = HashMap()
-            for (card in hand.cards) {
+            for (card in cards) {
                 cardsCounter[card.value] =
                     if (cardsCounter.containsKey(card.value)) cardsCounter[card.value]!! + 1 else 1
             }
@@ -45,17 +46,17 @@ internal class HandComparator(private val hand: Hand) {
             val key1 = cardsCounter.keys.toTypedArray()[0]
             val key2 = cardsCounter.keys.toTypedArray()[1]
             if (cardsCounter[key1] == 3 && cardsCounter[key2] == 2 || cardsCounter[key2] == 3 && cardsCounter[key1] == 2) {
-                hand.cards.reverse()
-                val cardList2: MutableList<Card> = ArrayList(hand.cards)
+                cards.reverse()
+                val cardList2: MutableList<Card> = ArrayList(cards)
                 val cardValue = if (cardsCounter[key1] == 3) key1 else key2
-                for (card in hand.cards) {
+                for (card in cards) {
                     if (card.value == cardValue) {
                         cardList2.remove(card)
                         cardList2.add(card)
                     }
                 }
                 cardList2.reverse()
-                hand.cards = cardList2
+                cards = cardList2
                 return true
             }
             return false
@@ -76,14 +77,14 @@ internal class HandComparator(private val hand: Hand) {
 
     private val isStraight: Boolean
         get() {
-            hand.cards.sortWith(Collections.reverseOrder())
-            for (i in 0 until hand.cards.size - 1) if (hand.getCard(i).value - hand.getCard(i + 1).value != 1) return false
+            cards.sortWith(Collections.reverseOrder())
+            for (i in 0 until cards.size - 1) if (cards[i].value - cards[i+1].value != 1) return false
             return true
         }
 
     private val isFlush: Boolean
         get() {
-            for (i in 1 until hand.cards.size) if (hand.getCard(i).color != hand.getCard(0).color) return false
+            for (i in 1 until cards.size) if (cards[i].color != cards[0].color) return false
             return true
         }
 

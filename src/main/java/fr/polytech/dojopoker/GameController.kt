@@ -1,19 +1,17 @@
 package fr.polytech.dojopoker
 
-import fr.polytech.dojopoker.gamemode.DojoPoker
-import fr.polytech.dojopoker.gamemode.GamePoker
-import fr.polytech.dojopoker.gamemode.TexasHoldemPoker
+import fr.polytech.dojopoker.gamemode.*
 import java.util.*
 
 internal class GameController {
     var gamemode: GamePoker
 
     init {
-        lang.locale = selectLang()
-        gamemode = selectGamemode()
+        lang.locale = setLang()
+        gamemode = setGameMode()
     }
 
-    private fun selectLang(): String {
+    private fun setLang(): String {
         val sc = Scanner(System.`in`)
         var newLang: String
         do {
@@ -25,7 +23,7 @@ internal class GameController {
         return newLang
     }
 
-    private fun selectGamemode(): GamePoker {
+    private fun setGameMode(): GamePoker {
         val sc = Scanner(System.`in`)
         var mode: String
         val modes = ArrayList<String>()

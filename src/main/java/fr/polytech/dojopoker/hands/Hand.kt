@@ -15,7 +15,7 @@ class Hand(val id: Int) : Comparable<Hand> {
     }
 
     val ranking: HandRankings
-        get() = HandComparator(this).ranking
+        get() = HandComparator(cards).ranking
 
     val isValid: Boolean
         get() = cards.size == 5
