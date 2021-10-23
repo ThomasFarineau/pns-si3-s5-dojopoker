@@ -1,29 +1,42 @@
 package fr.thomasfar.dojopoker.gamemode
 
+import fr.thomasfar.dojopoker.cards.Card
 import fr.thomasfar.dojopoker.hands.Hand
 import java.util.ArrayList
 
 class TexasHoldemPoker : GamePoker() {
-    var boards: MutableList<Hand> = ArrayList()
+    var boards: MutableList<Card> = ArrayList()
 
     init {
-        println("\n\n▀█▀ █▀▀ ▀▄▀ ▄▀▄ █▀▀ █▄█ █▀█ █   █▀▄ █▀▀ █▄ ▄█ █▀█ █▀█ █▄▀ █▀▀ █▀█\n█  ██▄ █ █ █▀█ ▄██ █ █ █▄█ █▄▄ █▄▀ ██▄ █ ▀ █ █▀▀ █▄█ █ █ ██▄ █▀▄\n\n")
+        println("\n\n▀█▀ █▀▀ ▀▄▀ ▄▀▄ █▀▀ █▄█ █▀█ █   █▀▄ █▀▀ █▄ ▄█ █▀█ █▀█ █▄▀ █▀▀ █▀█\n █  ██▄ █ █ █▀█ ▄██ █ █ █▄█ █▄▄ █▄▀ ██▄ █ ▀ █ █▀▀ █▄█ █ █ ██▄ █▀▄\n\n")
         players = super.selectPlayers()
+
+        var winner: Hand? = null
+
+        while(winner == null) {
+            stepFlop()
+            stepTurn()
+            stepRiver()
+            println(boards)
+            winner = hands[0]
+        }
     }
 
 
     fun stepFlop() {
-        //3 cartes
+        boards.add(deck.pickRandomCard())
+        boards.add(deck.pickRandomCard())
+        boards.add(deck.pickRandomCard())
         print("Flop")
     }
 
     fun stepTurn() {
-        //1 cartes
+        boards.add(deck.pickRandomCard())
         print("Turn")
     }
 
     fun stepRiver() {
-        //1 cartes
+        boards.add(deck.pickRandomCard())
         print("River")
     }
 

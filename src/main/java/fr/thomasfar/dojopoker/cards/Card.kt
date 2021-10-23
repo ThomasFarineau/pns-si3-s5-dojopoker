@@ -9,24 +9,17 @@ class Card(val value: Int, val color: CardColor) : Comparable<Card> {
     }
 
     override fun toString(): String {
-        return when {
-            CardName.enumFromValue(value) != null -> CardName.enumFromValue(value).toString()
-            else -> value.toString() + "" + color.value + ""
-        }
+        return if (CardName.enumFromValue(value) != null) "${CardName.enumFromValue(value).toString()}${color.value}"
+        else "$value${color.value}"
     }
 
     fun stringValue(): String {
-        return when {
-            CardName.enumFromValue(value) != null -> CardName.enumFromValue(value)!!.readName
-            else -> "$value"
-        }
+        return if (CardName.enumFromValue(value) != null) CardName.enumFromValue(value)!!.readName else "$value"
     }
 
     override fun equals(other: Any?): Boolean {
-        return when (other) {
-            is Card -> Objects.nonNull(other) && other.value == value
-            else -> false
-        }
+        return if (other is Card) Objects.nonNull(other) && other.value == value
+        else false
     }
 
     override fun hashCode(): Int {
