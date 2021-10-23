@@ -3,23 +3,22 @@ package fr.polytech.dojopoker.gamemode
 import fr.polytech.dojopoker.Deck
 import fr.polytech.dojopoker.GameController
 import fr.polytech.dojopoker.hands.Hand
-import java.lang.Exception
 import java.util.*
 import java.util.stream.IntStream
 
 abstract class GamePoker internal constructor() {
-    var players: Int
+    var players: Int = 0
     var deck = Deck()
-    private var hands: MutableList<Hand> = ArrayList()
+    var hands: MutableList<Hand> = ArrayList()
 
-    private fun selectPlayers(): Int {
+    fun selectPlayers(): Int {
         val sc = Scanner(System.`in`)
         var players = 0
         do {
             println(GameController.lang["init.players.input"])
             try {
                 players = sc.nextLine().toInt()
-            } catch (var9: Exception) {
+            } catch (e: Exception) {
                 println(GameController.lang["init.players.input.error"])
             }
         } while (players < 2 || players > 10)
@@ -27,7 +26,5 @@ abstract class GamePoker internal constructor() {
         return players
     }
 
-    init {
-        players = selectPlayers()
-    }
+
 }

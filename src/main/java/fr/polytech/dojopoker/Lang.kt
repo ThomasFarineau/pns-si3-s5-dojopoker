@@ -35,7 +35,9 @@ class Lang {
         }
 
     operator fun get(string: String): String {
-        return if (currentLocale.getProperty(string) == null) "Lang error : The element $string cannot be found" else currentLocale.getProperty(string)
+        return if (currentLocale.getProperty(string) == null) "Lang error : The element $string cannot be found" else currentLocale.getProperty(
+            string
+        )
     }
 
     init {
