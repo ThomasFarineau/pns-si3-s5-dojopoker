@@ -8,14 +8,13 @@ internal class HandComparator(private var cards: MutableList<Card>) {
 
     private fun repeatOfCards(repeat: Int, number: Int): Boolean {
         val cardsCounter: MutableMap<Int, Int> = HashMap()
-
         for (card1 in cards) cardsCounter[card1.value] =
             if (cardsCounter.containsKey(card1.value)) cardsCounter[card1.value]!! + 1 else 1
         val counter = cardsCounter.entries.stream().filter { (_, value): Map.Entry<Int, Int> -> value == number }
             .count()
             .toInt()
-        if (counter >= repeat) {
-            val cardList2: MutableList<Card> = ArrayList(number)
+        return if (counter >= repeat) {
+            val cardList2: MutableList<Card> = ArrayList(cards)
             cards.reverse()
             cardList2.reverse()
             val toSort: List<Map.Entry<Int, Int>> = ArrayList<Map.Entry<Int, Int>>(cardsCounter.entries)
@@ -29,10 +28,10 @@ internal class HandComparator(private var cards: MutableList<Card>) {
                 }
             }
             cardList2.reverse()
-            cards = cardList2
-            return true
-        }
-        return false
+            cards.clear()
+            cards.addAll(cardList2)
+            true
+        } else false
     }
 
     private val isFull: Boolean
@@ -45,7 +44,7 @@ internal class HandComparator(private var cards: MutableList<Card>) {
             if (cardsCounter.size != 2) return false
             val key1 = cardsCounter.keys.toTypedArray()[0]
             val key2 = cardsCounter.keys.toTypedArray()[1]
-            if (cardsCounter[key1] == 3 && cardsCounter[key2] == 2 || cardsCounter[key2] == 3 && cardsCounter[key1] == 2) {
+            return if (cardsCounter[key1] == 3 && cardsCounter[key2] == 2 || cardsCounter[key2] == 3 && cardsCounter[key1] == 2) {
                 cards.reverse()
                 val cardList2: MutableList<Card> = ArrayList(cards)
                 val cardValue = if (cardsCounter[key1] == 3) key1 else key2
@@ -56,10 +55,10 @@ internal class HandComparator(private var cards: MutableList<Card>) {
                     }
                 }
                 cardList2.reverse()
-                cards = cardList2
-                return true
-            }
-            return false
+                cards.clear()
+                cards.addAll(cardList2)
+                true
+            } else false
         }
 
     private fun init(): HandRankings {
@@ -71,7 +70,8 @@ internal class HandComparator(private var cards: MutableList<Card>) {
             isStraight -> HandRankings.STRAIGHT
             repeatOfCards(1, 3) -> HandRankings.THREE_OF_A_KIND
             repeatOfCards(2, 2) -> HandRankings.TWO_PAIR
-            else -> if (repeatOfCards(1, 2)) HandRankings.PAIR else HandRankings.HIGH_CARD
+            repeatOfCards(1, 2) -> HandRankings.PAIR
+            else -> HandRankings.HIGH_CARD
         }
     }
 

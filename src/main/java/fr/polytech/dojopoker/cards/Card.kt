@@ -14,12 +14,13 @@ class Card(val value: Int, val color: CardColor) : Comparable<Card> {
         return valueStr + "" + color.value + ""
     }
 
-    val stringValue: String
-        get() = if (Objects.nonNull(CardName.enumFromValue(value))) {
+    fun stringValue(): String {
+        return if (CardName.enumFromValue(value) != null) {
             CardName.enumFromValue(value)!!.readName
         } else {
-            value.toString()
+            "$value"
         }
+    }
 
     override fun equals(other: Any?): Boolean {
         return when (other) {

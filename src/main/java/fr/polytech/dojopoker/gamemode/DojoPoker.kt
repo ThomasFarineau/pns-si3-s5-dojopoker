@@ -89,12 +89,15 @@ class DojoPoker : GamePoker() {
                     lang["end.win.message"].replace("{id}", "${hand.id}").replace("{ranking}", rankings.readName)
                 when {
                     rankings === HandRankings.PAIR || rankings === HandRankings.TWO_PAIR || rankings === HandRankings.THREE_OF_A_KIND || rankings === HandRankings.FOUR_OF_A_KIND || rankings === HandRankings.FULL_HOUSE -> {
-                        toReturn += lang["end.win.message.of"] + hand.getCard(0).stringValue
-                        if (rankings === HandRankings.TWO_PAIR || rankings === HandRankings.FULL_HOUSE)
-                            toReturn += lang["end.win.message.of.of"] + { hand.getCard(3).stringValue }
+                        toReturn += lang["end.win.message.of"] + hand.cards[0].stringValue()
+                        if (rankings === HandRankings.TWO_PAIR || rankings === HandRankings.FULL_HOUSE) {
+                            println(hand.cards[3].stringValue())
+                            toReturn += " " + lang["end.win.message.of.of"] + hand.cards[3].stringValue()
+
+                        }
                     }
-                    rankings === HandRankings.HIGH_CARD -> toReturn += ": ${hand.getCard(0).stringValue}"
-                    rankings === HandRankings.FLUSH -> toReturn += ": ${hand.getCard(0).color.readName}"
+                    rankings === HandRankings.HIGH_CARD -> toReturn += ": ${hand.cards[0].stringValue()}"
+                    rankings === HandRankings.FLUSH -> toReturn += ": ${hand.cards[0].color.readName}"
                     rankings === HandRankings.STRAIGHT || rankings === HandRankings.STRAIGHT_FLUSH -> toReturn += ": ${hand.cards}"
                 }
                 return toReturn

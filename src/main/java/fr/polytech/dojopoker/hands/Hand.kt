@@ -20,10 +20,6 @@ class Hand(val id: Int) : Comparable<Hand> {
     val isValid: Boolean
         get() = cards.size == 5
 
-    fun getCard(i: Int): Card {
-        return cards[i]
-    }
-
     override fun compareTo(other: Hand): Int {
         if (ranking !== other.ranking) return ranking.strength - other.ranking.strength
         val h = cardsValueCompare(other)
