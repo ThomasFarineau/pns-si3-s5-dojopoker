@@ -11,8 +11,7 @@ enum class CardColor(val value: String, val readName: String) {
     companion object {
         @JvmStatic
         fun enumFromValue(color: String): CardColor? {
-            for (cardColor in values()) if (cardColor.value == color) return cardColor
-            return null
+            return values().firstOrNull { it.value == color }
         }
 
         @JvmStatic

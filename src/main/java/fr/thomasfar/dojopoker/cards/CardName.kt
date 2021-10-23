@@ -11,8 +11,7 @@ internal enum class CardName(val value: Int, val indicator: String, val readName
     companion object {
         @JvmStatic
         fun enumFromValue(value: Int): CardName? {
-            for (cardName in values()) if (cardName.value == value) return cardName
-            return null
+            return values().firstOrNull { it.value == value }
         }
 
     }

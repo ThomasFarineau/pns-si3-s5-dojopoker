@@ -9,16 +9,16 @@ class Card(val value: Int, val color: CardColor) : Comparable<Card> {
     }
 
     override fun toString(): String {
-        val valueStr =
-            if (CardName.enumFromValue(value) != null) CardName.enumFromValue(value).toString() else value.toString()
-        return valueStr + "" + color.value + ""
+        return when {
+            CardName.enumFromValue(value) != null -> CardName.enumFromValue(value).toString()
+            else -> value.toString() + "" + color.value + ""
+        }
     }
 
     fun stringValue(): String {
-        return if (CardName.enumFromValue(value) != null) {
-            CardName.enumFromValue(value)!!.readName
-        } else {
-            "$value"
+        return when {
+            CardName.enumFromValue(value) != null -> CardName.enumFromValue(value)!!.readName
+            else -> "$value"
         }
     }
 
