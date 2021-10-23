@@ -1,8 +1,8 @@
-package fr.polytech.dojopoker
+package fr.thomasfar.dojopoker
 
-import fr.polytech.dojopoker.cards.Card
-import fr.polytech.dojopoker.cards.CardColor
-import fr.polytech.dojopoker.exceptions.CardTakenException
+import fr.thomasfar.dojopoker.cards.Card
+import fr.thomasfar.dojopoker.cards.CardColor
+import fr.thomasfar.dojopoker.exceptions.CardTakenException
 import java.util.*
 
 class Deck @JvmOverloads constructor(i: Int = 1) {

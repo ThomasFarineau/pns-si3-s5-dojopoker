@@ -1,6 +1,6 @@
-package fr.polytech.dojopoker.hands
+package fr.thomasfar.dojopoker.hands
 
-import fr.polytech.dojopoker.cards.Card
+import fr.thomasfar.dojopoker.cards.Card
 import java.util.*
 
 class Hand(val id: Int) : Comparable<Hand> {

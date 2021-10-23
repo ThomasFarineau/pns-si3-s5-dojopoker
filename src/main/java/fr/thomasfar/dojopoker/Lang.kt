@@ -1,4 +1,4 @@
-package fr.polytech.dojopoker
+package fr.thomasfar.dojopoker
 
 import java.io.File
 import java.io.FileInputStream

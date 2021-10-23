@@ -1,4 +1,4 @@
-package fr.polytech.dojopoker
+package fr.thomasfar.dojopoker
 
 internal object Main {
     @JvmStatic

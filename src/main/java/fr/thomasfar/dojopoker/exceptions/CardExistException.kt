@@ -1,6 +1,6 @@
-package fr.polytech.dojopoker.exceptions
+package fr.thomasfar.dojopoker.exceptions
 
-import fr.polytech.dojopoker.GameController
+import fr.thomasfar.dojopoker.GameController
 
 class CardExistException
     (card: String) : Exception(GameController.lang["reader.exception.card.exist"].replace("{card}", card))

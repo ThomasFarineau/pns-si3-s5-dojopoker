@@ -1,6 +1,6 @@
-package fr.polytech.dojopoker.hands
+package fr.thomasfar.dojopoker.hands
 
-import fr.polytech.dojopoker.GameController
+import fr.thomasfar.dojopoker.GameController
 
 enum class HandRankings(val strength: Int, val readName: String) {
     //ROYAL_STRAIGHT_FLUSH(9, GameController.lang["rankings.royal_straight_flush"]),

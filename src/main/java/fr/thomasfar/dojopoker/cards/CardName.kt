@@ -1,6 +1,6 @@
-package fr.polytech.dojopoker.cards
+package fr.thomasfar.dojopoker.cards
 
-import fr.polytech.dojopoker.GameController
+import fr.thomasfar.dojopoker.GameController
 
 internal enum class CardName(val value: Int, val indicator: String, val readName: String) {
     J(11, GameController.lang["card.11.1"], GameController.lang["card.11.name"]),

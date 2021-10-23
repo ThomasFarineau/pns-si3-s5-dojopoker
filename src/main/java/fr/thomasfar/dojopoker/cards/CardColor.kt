@@ -1,6 +1,6 @@
-package fr.polytech.dojopoker.cards
+package fr.thomasfar.dojopoker.cards
 
-import fr.polytech.dojopoker.GameController
+import fr.thomasfar.dojopoker.GameController
 
 enum class CardColor(val value: String, val readName: String) {
     CLUBS(GameController.lang["flush.clubs.2"], GameController.lang["flush.clubs.name"]),

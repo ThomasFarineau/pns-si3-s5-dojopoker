@@ -1,8 +1,8 @@
-package fr.polytech.dojopoker.gamemode
+package fr.thomasfar.dojopoker.gamemode
 
-import fr.polytech.dojopoker.Deck
-import fr.polytech.dojopoker.GameController
-import fr.polytech.dojopoker.hands.Hand
+import fr.thomasfar.dojopoker.Deck
+import fr.thomasfar.dojopoker.GameController
+import fr.thomasfar.dojopoker.hands.Hand
 import java.util.*
 import java.util.stream.IntStream
 

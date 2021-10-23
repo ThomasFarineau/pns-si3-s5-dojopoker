@@ -1,6 +1,6 @@
-package fr.polytech.dojopoker.cards
+package fr.thomasfar.dojopoker.cards
 
-import fr.polytech.dojopoker.exceptions.CardExistException
+import fr.thomasfar.dojopoker.exceptions.CardExistException
 import java.util.*
 
 class Card(val value: Int, val color: CardColor) : Comparable<Card> {

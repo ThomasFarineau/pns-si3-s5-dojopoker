@@ -1,6 +1,6 @@
-package fr.polytech.dojopoker.exceptions
+package fr.thomasfar.dojopoker.exceptions
 
-import fr.polytech.dojopoker.GameController
+import fr.thomasfar.dojopoker.GameController
 
 class HandSizeException
     (size: Int, actualSize: Int) : Exception(

@@ -1,6 +1,6 @@
-package fr.polytech.dojopoker.gamemode
+package fr.thomasfar.dojopoker.gamemode
 
-import fr.polytech.dojopoker.hands.Hand
+import fr.thomasfar.dojopoker.hands.Hand
 import java.util.ArrayList
 
 class TexasHoldemPoker : GamePoker() {

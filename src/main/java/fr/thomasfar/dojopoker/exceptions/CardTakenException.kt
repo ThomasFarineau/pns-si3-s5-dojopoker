@@ -1,7 +1,7 @@
-package fr.polytech.dojopoker.exceptions
+package fr.thomasfar.dojopoker.exceptions
 
-import fr.polytech.dojopoker.GameController
-import fr.polytech.dojopoker.cards.Card
+import fr.thomasfar.dojopoker.GameController
+import fr.thomasfar.dojopoker.cards.Card
 
 class CardTakenException
     (card: Card) : Exception(GameController.lang["reader.exception.card.taken"].replace("{card}", "$card"))

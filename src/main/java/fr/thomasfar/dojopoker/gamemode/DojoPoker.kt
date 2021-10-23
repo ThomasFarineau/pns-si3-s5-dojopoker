@@ -1,14 +1,14 @@
-package fr.polytech.dojopoker.gamemode
+package fr.thomasfar.dojopoker.gamemode
 
-import fr.polytech.dojopoker.GameController.Companion.lang
-import fr.polytech.dojopoker.cards.Card
-import fr.polytech.dojopoker.cards.Card.Companion.isValidCard
-import fr.polytech.dojopoker.cards.CardColor.Companion.enumFromValue
-import fr.polytech.dojopoker.cards.CardName
-import fr.polytech.dojopoker.exceptions.CardFormatException
-import fr.polytech.dojopoker.exceptions.HandSizeException
-import fr.polytech.dojopoker.hands.Hand
-import fr.polytech.dojopoker.hands.HandRankings
+import fr.thomasfar.dojopoker.GameController.Companion.lang
+import fr.thomasfar.dojopoker.cards.Card
+import fr.thomasfar.dojopoker.cards.Card.Companion.isValidCard
+import fr.thomasfar.dojopoker.cards.CardColor.Companion.enumFromValue
+import fr.thomasfar.dojopoker.cards.CardName
+import fr.thomasfar.dojopoker.exceptions.CardFormatException
+import fr.thomasfar.dojopoker.exceptions.HandSizeException
+import fr.thomasfar.dojopoker.hands.Hand
+import fr.thomasfar.dojopoker.hands.HandRankings
 import java.util.*
 import java.util.function.Consumer
 
