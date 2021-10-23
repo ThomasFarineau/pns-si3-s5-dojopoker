@@ -1,25 +1,22 @@
 package fr.polytech.dojopoker
 
+import fr.polytech.dojopoker.gamemode.DojoPoker
+import fr.polytech.dojopoker.gamemode.GamePoker
+import fr.polytech.dojopoker.gamemode.TexasHoldemPoker
+import fr.polytech.dojopoker.hands.Hand
+import fr.polytech.dojopoker.hands.HandRankings
 import java.util.*
+import kotlin.collections.ArrayList
 
 internal class GameController {
-    @JvmField
-    val deck: Deck
-    var hands: MutableList<Hand> = ArrayList()
-    private var players: Int
-
+    var gamemode: GamePoker
     init {
         lang.locale = selectLang()
-        players = selectPlayers()
+        gamemode = selectGamemode()
 
-        deck = Deck()
+        //GameReader(this).readingStandardInput()
 
-        (1..players).forEach { i -> hands.add(Hand(i)) }
-
-        GameReader(this).readingStandardInput()
-
-        val hand = winnerHand()
-        println(getWinningMessage(hand))
+        //println(getWinningMessage(winnerHand()))
     }
 
     private fun selectLang(): String {
@@ -28,28 +25,31 @@ internal class GameController {
         do {
             println(lang["init.locale.select"].replace("{list}", lang.locales.toString()))
             newLang = sc.nextLine()
-            if(!lang.locales.contains(newLang)) {
-                println(lang["init.locale.select.error"])
-            }
+            if(!lang.locales.contains(newLang)) println(lang["init.locale.select.error"])
         } while (!lang.locales.contains(newLang))
 
         return newLang
     }
 
-    private fun selectPlayers(): Int {
+    private fun selectGamemode(): GamePoker {
         val sc = Scanner(System.`in`)
-        var players = 0
+        var mode: String
+        val modes = ArrayList<String>()
+        modes.add("Dojo")
+        modes.add("TexasHoldem")
         do {
-            println(lang["init.players.input"])
-            try {
-                players = Integer.parseInt(sc.nextLine())
-            } catch (e: Exception) {
-                println(lang["init.players.input.error"])
-            }
-        } while (players < 2 || players > 10)
-        return players
+            println(lang["init.gamemode.input"].replace("{list}", modes.toString()))
+            mode = sc.nextLine()
+            if(!modes.contains(mode)) println(lang["init.gamemode.input.error"])
+        } while (!modes.contains(mode))
+        return when (mode) {
+            "TexasHoldem" -> TexasHoldemPoker()
+            "Dojo" -> DojoPoker()
+            else -> DojoPoker()
+        }
     }
 
+    /**
     private fun winnerHand(): Hand? {
         hands.sortWith(Collections.reverseOrder())
         for (i in 1..hands.size)
@@ -78,7 +78,7 @@ internal class GameController {
             }
         }
     }
-
+        **/
     companion object {
         val lang = Lang()
     }

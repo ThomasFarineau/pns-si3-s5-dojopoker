@@ -1,9 +1,9 @@
-package fr.polytech.dojopoker
+package fr.polytech.dojopoker.hands
 
 import fr.polytech.dojopoker.cards.Card
 import java.util.*
 
-internal class Hand(val id: Int) : Comparable<Hand> {
+class Hand(val id: Int) : Comparable<Hand> {
     var cards: MutableList<Card> = ArrayList()
 
     private fun cardsValueCompare(hand2: Hand): Hand? {

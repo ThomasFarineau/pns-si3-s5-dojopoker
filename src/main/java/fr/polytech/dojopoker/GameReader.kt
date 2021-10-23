@@ -10,7 +10,7 @@ import java.util.function.Consumer
 
 internal class GameReader(private val game: GameController) {
 
-    private fun inputConversion(cardRepresentation: String): List<Card> {
+    /**private fun inputConversion(cardRepresentation: String): List<Card> {
         val c: MutableList<Card> = ArrayList()
         var pos = 0
         val cardsReads = cardRepresentation.split(" ").toTypedArray()
@@ -64,5 +64,5 @@ internal class GameReader(private val game: GameController) {
 
     companion object {
         var cardsToRead = 5
-    }
+    }**/
 }

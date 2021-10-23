@@ -1,4 +1,4 @@
-package fr.polytech.dojopoker
+package fr.polytech.dojopoker.hands
 
 import fr.polytech.dojopoker.cards.Card
 import java.util.*

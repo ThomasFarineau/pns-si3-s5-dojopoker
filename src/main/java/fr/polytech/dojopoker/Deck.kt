@@ -5,7 +5,7 @@ import fr.polytech.dojopoker.cards.CardColor
 import fr.polytech.dojopoker.exceptions.CardTakenException
 import java.util.*
 
-internal class Deck @JvmOverloads constructor(i: Int = 1) {
+class Deck @JvmOverloads constructor(i: Int = 1) {
     private val cards: MutableMap<Card, Int> = LinkedHashMap()
     private var size = 0
 
