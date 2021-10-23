@@ -11,10 +11,6 @@ internal class GameController {
     init {
         lang.locale = selectLang()
         gamemode = selectGamemode()
-
-        //GameReader(this).readingStandardInput()
-
-        //println(getWinningMessage(winnerHand()))
     }
 
     private fun selectLang(): String {

@@ -12,6 +12,7 @@ import java.util.function.Consumer
 
 class DojoPoker : GamePoker() {
     private val cardsToRead = 5
+
     init {
         println("\n\n█▀▄ █▀█ ▀█▀ █▀█ █▀█ █▀█ █▄▀ █▀▀ █▀█\n█▄▀ █▄█ ▄█  █▄█ █▀▀ █▄█ █ █ ██▄ █▀▄\n\n")
         players = super.selectPlayers()
@@ -22,18 +23,31 @@ class DojoPoker : GamePoker() {
         val sc = Scanner(System.`in`)
         for (hand in hands) do {
             print(GameController.lang["reader.input"].replace("{id}", "${hand.id}"))
-            hand.cards = inputConversion(sc.nextLine()) as MutableList<Card>
+            val nLine = sc.nextLine()
+            when {
+                nLine.equals(GameController.lang["reader.random"]) -> hand.cards = randomCards()
+                else -> hand.cards = inputConversion(nLine)
+            }
         } while (!hand.isValid)
     }
 
-    private fun inputConversion(cardRepresentation: String): List<Card> {
+    private fun randomCards(): MutableList<Card> {
+        val toReturn: MutableList<Card> = ArrayList()
+        repeat((1..cardsToRead).count()) { toReturn.add(deck.pickRandomCard()) }
+        println(toReturn.toString())
+        return toReturn
+    }
+
+    private fun inputConversion(cardRepresentation: String): MutableList<Card> {
         val c: MutableList<Card> = ArrayList()
         var pos = 0
         val cardsReads = cardRepresentation.split(" ").toTypedArray()
         try {
             if (isCorrectHandSize(cardsReads.size)) for (s in cardsReads) {
                 pos++
-                val ci = s.split(Regex("((?=[A-Z&&[^${CardName.J.indicator}${CardName.Q.indicator}${CardName.K.indicator}${CardName.A.indicator}]]))")).toTypedArray()
+                val ci =
+                    s.split(Regex("((?=[A-Z&&[^${CardName.J.indicator}${CardName.Q.indicator}${CardName.K.indicator}${CardName.A.indicator}]]))"))
+                        .toTypedArray()
                 if (isValidCardFormat(ci.size, pos)) {
                     val value: Int = when (ci[0]) {
                         CardName.J.indicator -> CardName.J.value
@@ -60,6 +74,7 @@ class DojoPoker : GamePoker() {
     private fun rankHands() {
 
     }
+
     //Message de fins
     private fun endMessage() {
 

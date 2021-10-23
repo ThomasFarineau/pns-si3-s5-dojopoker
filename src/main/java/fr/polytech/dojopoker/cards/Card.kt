@@ -29,9 +29,7 @@ class Card(val value: Int, val color: CardColor) : Comparable<Card> {
     }
 
     override fun hashCode(): Int {
-        var result = value
-        result = 31 * result + color.hashCode()
-        return result
+        return 31 * value + color.hashCode()
     }
 
     companion object {
