@@ -1,9 +1,6 @@
 package fr.thomasfar.dojopoker
 
-import java.io.File
-import java.io.FileInputStream
-import java.io.IOException
-import java.io.InputStream
+import java.io.*
 import java.util.*
 import java.util.stream.Collectors
 
@@ -22,14 +19,12 @@ class Lang {
     var locale: String
         get() = currentLocale.getProperty("locale.id").substring(3, 5)
         set(locale) {
-            for (file in files) {
-                if (file.name.matches(Regex("[a-z]*_$locale*[.]properties"))) {
-                    try {
-                        val input: InputStream = FileInputStream(file)
-                        currentLocale.load(input)
-                    } catch (e: IOException) {
-                        println(get("init.locale.select.error"))
-                    }
+            for (file in files) if (file.name.matches(Regex("[a-z]*_$locale*[.]properties"))) {
+                try {
+                    val input: InputStream = FileInputStream(file)
+                    currentLocale.load(InputStreamReader(input, "UTF-8"))
+                } catch (e: IOException) {
+                    println(get("init.locale.select.error"))
                 }
             }
         }

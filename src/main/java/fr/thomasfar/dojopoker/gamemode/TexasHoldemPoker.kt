@@ -2,7 +2,6 @@ package fr.thomasfar.dojopoker.gamemode
 
 import fr.thomasfar.dojopoker.cards.Card
 import fr.thomasfar.dojopoker.hands.Hand
-import java.util.ArrayList
 
 class TexasHoldemPoker : GamePoker() {
     var boards: MutableList<Card> = ArrayList()
@@ -13,7 +12,7 @@ class TexasHoldemPoker : GamePoker() {
 
         var winner: Hand? = null
 
-        while(winner == null) {
+        while (winner == null) {
             stepFlop()
             stepTurn()
             stepRiver()
@@ -21,7 +20,6 @@ class TexasHoldemPoker : GamePoker() {
             winner = hands[0]
         }
     }
-
 
     fun stepFlop() {
         boards.add(deck.pickRandomCard())
