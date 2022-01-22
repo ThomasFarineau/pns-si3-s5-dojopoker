@@ -3,7 +3,7 @@ package fr.thomasfar.dojopoker.hands
 import fr.thomasfar.dojopoker.GameController
 
 enum class HandRankings(val strength: Int, val readName: String) {
-    //ROYAL_STRAIGHT_FLUSH(9, GameController.lang["rankings.royal_straight_flush"]),
+    ROYAL_STRAIGHT_FLUSH(9, GameController.lang["rankings.royal_straight_flush"]),
     STRAIGHT_FLUSH(8, GameController.lang["rankings.straight_flush"]),
     FOUR_OF_A_KIND(7, GameController.lang["rankings.four_of_a_kind"]),
     FULL_HOUSE(6, GameController.lang["rankings.full_house"]),
